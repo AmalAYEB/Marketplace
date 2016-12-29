@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     27/12/2016 23:07:29                          */
+/* Created on:     29/12/2016 01:52:55                          */
 /*==============================================================*/
 
 
@@ -110,9 +110,9 @@ create table PRODUCT
 create table SHOP
 (
    ID_SHOP              int not null auto_increment,
+   ID_CATEGORY          int not null,
    ID_SELLER            int not null,
    NAME_SHOP            varchar(255),
-   TYPE                 varchar(255),
    PHONE_SHOP           bigint,
    ADDRESS_SHOP         text,
    primary key (ID_SHOP)
@@ -190,7 +190,10 @@ alter table PRODUCT add constraint FK_MANAGE_PRODUCTS foreign key (ID_SELLER)
 alter table SHOP add constraint FK_MANAGE_SHOP foreign key (ID_SELLER)
       references SHOPMAN (ID_SELLER) on delete restrict on update restrict;
 
-alter table SHOPMAN add constraint FK_SHOPMAN_EXTENDS foreign key (ID_SELLER)
+alter table SHOP add constraint FK_TO_HAVE foreign key (ID_CATEGORY)
+      references CATEGORY (ID_CATEGORY) on delete restrict on update restrict;
+
+alter table SHOPMAN add constraint FK_SELLER_EXTENDS foreign key (ID_SELLER)
       references USERS (ID_USER) on delete restrict on update restrict;
 
 alter table TO_COMMENT add constraint FK_TO_COMMENT foreign key (ID_CUSTOMER)
